@@ -14,13 +14,13 @@ struct ContourFlowView: View {
     private var steps: [MakeupStep] {
         [
             MakeupStep(title: "Apply Contour") {
-                FaceStepContent(label: "Apply Contour")
+                FaceStepContent(label: "Apply Contour", arStep: .contour)
             },
             MakeupStep(title: "Apply Blush") {
-                FaceStepContent(label: "Apply Blush")
+                FaceStepContent(label: "Apply Blush", arStep: .blush)
             },
             MakeupStep(title: "Apply Highlight") {
-                FaceStepContent(label: "Apply Highlight")
+                FaceStepContent(label: "Apply Highlight", arStep: .highlight)
             },
         ]
     }
@@ -32,10 +32,13 @@ struct ContourFlowView: View {
 
 private struct FaceStepContent: View {
     let label: String
+    let arStep: FaceARStep
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            FacePlaceholder()
+            // Same view type every step -> SwiftUI keeps one AR session and only swaps the outlines.
+            FaceARView(shape: .oval, step: arStep)
+                .ignoresSafeArea()
             LabelPill(text: label)
                 .padding(16)
         }

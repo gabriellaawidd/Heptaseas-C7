@@ -14,7 +14,7 @@ enum FaceShape: String, CaseIterable, Identifiable {
 }
 
 /// The 3 AR steps: contour -> blush -> highlight.
-enum MakeupStep: Int, CaseIterable {
+enum FaceARStep: Int, CaseIterable {
     case contour, blush, highlight
 
     var title: String {
@@ -33,6 +33,6 @@ enum MakeupStep: Int, CaseIterable {
         }
     }
 
-    var next: MakeupStep? { MakeupStep(rawValue: rawValue + 1) }
-    var previous: MakeupStep? { MakeupStep(rawValue: rawValue - 1) }
+    var next: FaceARStep? { FaceARStep(rawValue: rawValue + 1) }
+    var previous: FaceARStep? { FaceARStep(rawValue: rawValue - 1) }
 }

@@ -22,7 +22,6 @@ struct StepFlowView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             steps[currentIndex].content
-                .id(steps[currentIndex].id)
 
             backButton
         }

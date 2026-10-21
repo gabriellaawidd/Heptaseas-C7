@@ -33,7 +33,7 @@ enum FaceOutlineLibrary {
     }
 
     /// Outlines for the current step (contour / blush / highlight).
-    static func outlines(for step: MakeupStep, shape: FaceShape) -> [OutlinePath] {
+    static func outlines(for step: FaceARStep, shape: FaceShape) -> [OutlinePath] {
         switch shape {
         case .oval:
             return ovalOutlines(for: step)
@@ -45,7 +45,7 @@ enum FaceOutlineLibrary {
 
     // MARK: - Oval face placement (initial guesses, tune using the debug mesh)
 
-    private static func ovalOutlines(for step: MakeupStep) -> [OutlinePath] {
+    private static func ovalOutlines(for step: FaceARStep) -> [OutlinePath] {
         switch step {
         case .contour:
             return [
