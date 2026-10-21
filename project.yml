@@ -3,7 +3,7 @@ name: POC-v1-CT
 options:
   bundleIdPrefix: bsd.iosda
   deploymentTarget:
-    iOS: "27.0"
+    iOS: "17.0"
   developmentLanguage: en
   createIntermediateGroups: true
 
@@ -37,7 +37,10 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
-
+        INFOPLIST_KEY_NSCameraUsageDescription: "Camera is used to track your face for the AR makeup tutorial."
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "Microphone is used to listen to your 'next' and 'previous' voice commands."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "Speech recognition is used to understand your voice commands."
+        
         # Assets
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
