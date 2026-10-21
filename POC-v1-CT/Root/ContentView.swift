@@ -7,17 +7,41 @@
 
 import SwiftUI
 
+enum MakeupRoute: Hashable {
+    case eyeMakeup
+    case contour
+}
+
 struct ContentView: View {
+    @State private var path = NavigationPath()
+
     var body: some View {
-        TabView {
-            Tab("Eye Makeup", systemImage: "eye") {
-                EyeMakeupView()
+        NavigationStack(path: $path) {
+            VStack(spacing: 16) {
+                Button("Eye Makeup") {
+                    path.append(MakeupRoute.eyeMakeup)
+                }
+                .buttonStyle(.borderedProminent)
+
+                Button("Contour") {
+                    path.append(MakeupRoute.contour)
+                }
+                .buttonStyle(.borderedProminent)
             }
-            Tab("Contour", systemImage: "face.smiling") {
-                ContourView()
+            .navigationTitle("Home")
+            .navigationDestination(for: MakeupRoute.self) { route in
+                switch route {
+                case .eyeMakeup:
+                    EyeMakeupFlowView(onFinish: goHome)
+                case .contour:
+                    ContourFlowView(onFinish: goHome)
+                }
             }
         }
-        .preferredColorScheme(.dark)
+    }
+
+    private func goHome() {
+        path = NavigationPath()
     }
 }
 
