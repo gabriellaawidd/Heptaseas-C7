@@ -10,12 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            Tab("Eye Makeup", systemImage: "eye") {
-                EyeMakeupView()
-            }
-            Tab("Contour", systemImage: "face.smiling") {
-                ContourView()
-            }
+            Tab("Eye Makeup", systemImage: "eye") { EyeMakeupView() }
+            Tab("Face Makeup", systemImage: "camera") { FaceARDemoView() }
         }
         .preferredColorScheme(.dark)
     }
