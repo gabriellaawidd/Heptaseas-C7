@@ -8,29 +8,28 @@
 
 import SwiftUI
 
-struct CameraPlaceholder: View {
-    var zoomed: Bool = false
-
+struct EyeZoomPlaceholder: View {
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                LinearGradient(
-                    colors: [Color(white: 0.35), Color(white: 0.15)],
-                    startPoint: .top, endPoint: .bottom
-                )
-                Image(systemName: zoomed ? "eye.fill" : "person.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.white.opacity(0.25))
-                    .frame(width: geo.size.width * (zoomed ? 0.6 : 0.7))
-                Text("Camera Preview")
-                    .font(.caption)
-                    .foregroundStyle(.white.opacity(0.6))
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .padding(.top, 70)
-            }
-            .frame(width: geo.size.width, height: geo.size.height)
-            .clipped()
+        ZStack {
+            Color.black
+            Image(systemName: "eye")
+                .resizable()
+                .scaledToFit()
+                .foregroundStyle(.white.opacity(0.5))
+                .padding(60)
+        }
+    }
+}
+
+struct FacePlaceholder: View {
+    var body: some View {
+        ZStack {
+            Color.black
+            Image(systemName: "person.crop.square")
+                .resizable()
+                .scaledToFit()
+                .foregroundStyle(.white.opacity(0.5))
+                .padding(40)
         }
     }
 }
