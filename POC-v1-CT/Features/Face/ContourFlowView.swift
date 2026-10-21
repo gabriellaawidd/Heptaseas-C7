@@ -11,15 +11,15 @@ import SwiftUI
 struct ContourFlowView: View {
     let onFinish: () -> Void
 
-    private var steps: [MakeupStep] {
+    private var steps: [MakeupStepPage] {
         [
-            MakeupStep(title: "Apply Contour") {
+            MakeupStepPage(title: "Apply Contour") {
                 FaceStepContent(label: "Apply Contour", arStep: .contour)
             },
-            MakeupStep(title: "Apply Blush") {
+            MakeupStepPage(title: "Apply Blush") {
                 FaceStepContent(label: "Apply Blush", arStep: .blush)
             },
-            MakeupStep(title: "Apply Highlight") {
+            MakeupStepPage(title: "Apply Highlight") {
                 FaceStepContent(label: "Apply Highlight", arStep: .highlight)
             },
         ]

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MakeupStep: Identifiable {
+struct MakeupStepPage: Identifiable {
     let id = UUID()
     let title: String
     let content: AnyView
