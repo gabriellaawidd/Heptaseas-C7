@@ -14,7 +14,7 @@ import SceneKit
 /// Always shows: the dotted face-shape guide + the dotted outlines of the current step.
 struct FaceARView: UIViewRepresentable {
     var shape: FaceShape
-    var step: MakeupStep
+    var step: FaceARStep
     /// Green wireframe of the ARKit face mesh. Turn on while tuning outline positions.
     var showDebugMesh = false
 
@@ -49,7 +49,7 @@ struct FaceARView: UIViewRepresentable {
 
     final class Coordinator: NSObject, ARSCNViewDelegate {
         var shape: FaceShape = .oval
-        var step: MakeupStep = .contour
+        var step: FaceARStep = .contour
         var showDebugMesh = false
 
         private let dotsRoot = SCNNode()
@@ -64,7 +64,7 @@ struct FaceARView: UIViewRepresentable {
             }
         }
 
-        func update(shape: FaceShape, step: MakeupStep) {
+        func update(shape: FaceShape, step: FaceARStep) {
             guard shape != self.shape || step != self.step else { return }
             self.shape = shape
             self.step = step
