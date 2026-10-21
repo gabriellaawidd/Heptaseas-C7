@@ -23,7 +23,7 @@ struct ContentView: View {
                 }
                 .buttonStyle(.borderedProminent)
 
-                Button("Contour") {
+                Button("Face Makeup") {
                     path.append(MakeupRoute.contour)
                 }
                 .buttonStyle(.borderedProminent)
