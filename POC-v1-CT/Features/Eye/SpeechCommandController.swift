@@ -11,7 +11,7 @@ import Combine
 
 /// Voice command "next" / "previous" (en-US, on-device jika tersedia).
 final class SpeechCommandController: ObservableObject {
-    enum Command { case next, previous }
+    enum Command { case next, previous, finish }
 
     @Published private(set) var isListening = false
     @Published private(set) var lastHeard = ""
@@ -95,7 +95,7 @@ final class SpeechCommandController: ObservableObject {
 
         let req = SFSpeechAudioBufferRecognitionRequest()
         req.shouldReportPartialResults = true
-        req.contextualStrings = ["next", "previous"]
+        req.contextualStrings = ["next", "previous", "finish"]
         if recognizer.supportsOnDeviceRecognition { req.requiresOnDeviceRecognition = true }
         request = req
 
@@ -122,6 +122,7 @@ final class SpeechCommandController: ObservableObject {
         switch word {
         case "next": command = .next
         case "previous": command = .previous
+        case "finish": command = .finish
         default: command = nil
         }
         guard let command, Date().timeIntervalSince(lastFire) > 1.0 else { return false }

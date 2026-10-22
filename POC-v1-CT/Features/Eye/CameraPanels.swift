@@ -13,20 +13,20 @@ struct EyeCameraPanel: View {
     @ObservedObject var face: ARFaceController
     /// Ukuran viewport AR (sama dengan ukuran panel wajah di bawah).
     let viewport: CGSize
-
+    
     // Target jarak antar mata di panel (kelipatan lebar panel)
     private let bothEyesSpan: CGFloat = 0.70   // 👀: kedua mata terlihat
     private let singleEyeSpan: CGFloat = 1.45  // 👁: satu mata memenuhi panel
-
+    
     var body: some View {
         GeometryReader { geo in
             let size = geo.size
             let (t, zoom) = cropTransform(size: size)
-
+            
             ZStack {
                 FaceCanvas(frame: face.frame, viewport: viewport, transform: t, zoom: zoom)
                     .scaleEffect(x: -1, y: 1)
-
+                
                 VStack {
                     Spacer()
                     VStack(spacing: 10) {
@@ -38,7 +38,7 @@ struct EyeCameraPanel: View {
                     }
                 }
                 .padding(14)
-
+                
                 // Bar zoom vertikal di sisi kanan
                 HStack {
                     Spacer()
@@ -51,14 +51,14 @@ struct EyeCameraPanel: View {
             .animation(.easeInOut(duration: 0.2), value: vm.mode)
         }
     }
-
+    
     /// Transform viewport -> panel: pusat target ke tengah panel, wajah diluruskan (anti-roll), lalu zoom.
     private func cropTransform(size: CGSize) -> (CGAffineTransform, CGFloat) {
         let W = size.width
         var center = CGPoint(x: viewport.width / 2, y: viewport.height * 0.4)
         var base: CGFloat = (vm.mode == .bothEyes) ? 1.8 : 3.2
         var angle: CGFloat = 0
-
+        
         if let crop = face.frame?.crop {
             let d = max(crop.eyeDistance, 1)
             switch vm.mode {
@@ -71,7 +71,7 @@ struct EyeCameraPanel: View {
             }
             angle = crop.angle
         }
-
+        
         let zoom = min(max(base * vm.zoomMultiplier, 0.8), 12)
         let t = CGAffineTransform(translationX: -center.x, y: -center.y)
             .concatenating(CGAffineTransform(rotationAngle: -angle))
@@ -88,33 +88,27 @@ struct FaceCameraPanel: View {
     @ObservedObject var speech: SpeechCommandController
     /// Ukuran panel ini dipakai sebagai viewport AR.
     @Binding var viewport: CGSize
-
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 FaceCanvas(frame: face.frame, viewport: geo.size, showGuide: false)
                     .scaleEffect(x: -1, y: 1)
-
-                VStack(spacing: 8) {
-                    HStack(spacing: 6) {
-                        Image(systemName: speech.isListening ? "mic.fill" : "mic.slash.fill")
-                            .foregroundStyle(speech.isListening ? .green : .red)
-                        Text(speech.permissionDenied
-                             ? "Enable microphone & speech access in Settings"
-                             : "Say “next” or “previous”")
-                            .font(.footnote.weight(.medium))
+                
+                VStack {
+                    HStack {
+                        Spacer()
+                        VoiceHint(speech: speech)
                     }
-                    .padding(.horizontal, 12).padding(.vertical, 8)
-                    .background(.ultraThinMaterial, in: Capsule())
-
+                    
+                    Spacer()
+                    
                     if !face.isFaceTracked {
-                        Label("Position your face in the frame", systemImage: "face.dashed")
+                        Label("Position your face", systemImage: "face.dashed")
                             .font(.footnote.weight(.medium))
                             .padding(.horizontal, 12).padding(.vertical, 8)
                             .background(.ultraThinMaterial, in: Capsule())
                     }
-
-                    Spacer()
                 }
                 .padding(14)
             }
@@ -124,7 +118,7 @@ struct FaceCameraPanel: View {
             .onChange(of: geo.size) { _, s in sync(s) }
         }
     }
-
+    
     private func sync(_ s: CGSize) {
         viewport = s
         face.setViewport(s)

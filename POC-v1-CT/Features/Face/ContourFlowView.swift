@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContourFlowView: View {
     let onFinish: () -> Void
-
+    
     private var steps: [MakeupStepPage] {
         [
             MakeupStepPage(title: "Apply Contour") {
@@ -24,23 +24,22 @@ struct ContourFlowView: View {
             },
         ]
     }
-
+    
     var body: some View {
-        StepFlowView(steps: steps, onFinish: onFinish)
+        StepFlowView(steps: steps, voiceControl: true, onFinish: onFinish)
     }
 }
 
 private struct FaceStepContent: View {
     let label: String
     let arStep: FaceARStep
-
+    
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            // Same view type every step -> SwiftUI keeps one AR session and only swaps the outlines.
+        ZStack(alignment: .top) {
             FaceARView(shape: .oval, step: arStep)
                 .ignoresSafeArea()
             LabelPill(text: label)
-                .padding(16)
+                .padding(.top, 12)
         }
     }
 }

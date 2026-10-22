@@ -65,7 +65,7 @@ private struct EyeStepContent: View {
     // MARK: Panel bawah (wajah) + instruksi step sebagai overlay
 
     private var bottomPanel: some View {
-        ZStack(alignment: .bottomLeading) {
+        ZStack(alignment: .top) {
             if ARFaceController.isSupported {
                 FaceCameraPanel(face: vm.face, speech: vm.speech, viewport: $viewport)
             } else {
@@ -74,7 +74,7 @@ private struct EyeStepContent: View {
             }
 
             LabelPill(text: vm.step.instruction)
-                .padding(16)
+                .padding(.top, 14)
         }
     }
 }
