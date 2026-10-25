@@ -1,0 +1,34 @@
+name: AutoLightDetector
+
+options:
+  bundleIdPrefix: bsd.iosda
+  deploymentTarget:
+    iOS: "18.6"
+  developmentLanguage: en
+  createIntermediateGroups: true
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: Y2U32BVMN3
+    SWIFT_VERSION: 5.0
+
+targets:
+  AutoLightDetector:
+    type: application
+    platform: iOS
+    sources:
+      - path: Service
+      - path: Demo
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: bsd.iosda.AutoLightDetector
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: 1
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSCameraUsageDescription: "The front camera is used as a mirror and to measure room lighting so the screen can adjust automatically. Frames stay on this device."
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIStatusBarHidden: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
